@@ -2,17 +2,24 @@
 
 use Discord\Discord;
 use Discord\Parts\Channel\Message;
+use Discord\Builders\CommandBuilder;
+use Discord\Builders\MessageBuilder;
+use Discord\Parts\Interactions\Interaction;
 
 global $discord;
 
 
-$discord->on('message', function (Message $message, Discord $discord) 
-{
-    if ($message->author->bot) {
-        return;
-    }
+$discord->on('ready', function (Discord $discord) {
+    $discord->application->commands->save(
+        $discord->application->commands->create(CommandBuilder::new()
+            ->setName('ping')
+            ->setDescription('Check if the bot is up!')
+            ->toArray()
+        )
+    );
+});
 
-    if (strtolower($message->content) == 'ping') {
-        $message->reply('Pong!');
-    }
+
+$discord->listenCommand('ping', function (Interaction $interaction) {
+    $interaction->respondWithMessage(MessageBuilder::new()->setContent('Pong!'));
 });
