@@ -1,6 +1,7 @@
 <?php
 
 use Discord\Discord;
+
 include __dir__.'/helpers/logging.php';
 
 global $discord;
