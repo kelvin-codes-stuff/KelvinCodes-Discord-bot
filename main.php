@@ -23,22 +23,19 @@ $discord = new Discord([
 
 
 // Loading all events
-foreach (glob('events/*.php') as $file)
-{
+foreach (glob('events/*.php') as $file) {
     include $file;
 }
 
 
 // Loading all helpers
-foreach (glob('helpers/*.php') as $file) 
-{
+foreach (glob('helpers/*.php') as $file) {
     include $file;
 }
 
 
 // Loading all commands
-foreach (glob('commands/*.php') as $file)
-{
+foreach (glob('commands/*.php') as $file) {
     include $file;
 }
 
