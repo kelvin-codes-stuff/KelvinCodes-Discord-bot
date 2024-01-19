@@ -5,12 +5,11 @@ use Discord\WebSockets\Intents;
 
 include __dir__.'/vendor/autoload.php';
 
+if (!file_exists('config.php')) {
+    exit('No config file found! Place copy config.example.php to config.php');    
+} 
 
-if (file_exists('config.php')) {
-    $config = include('config.php');
-} else {
-    exit('No config file found! Place copy config.example.php to config.php');
-}
+$config = include('config.php');
 
 
 $discord = new Discord([
@@ -37,6 +36,14 @@ foreach (glob('helpers/*.php') as $file) {
 // Loading all commands
 foreach (glob('commands/*.php') as $file) {
     include $file;
+}
+
+
+// Setting up database connection
+try {
+    Database::connect();
+} catch (Exception $error) {
+    
 }
 
 
